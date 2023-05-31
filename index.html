@@ -70,9 +70,7 @@
             margin: 20px auto 0px auto;
             padding: 20px;
             box-shadow: 0px 0px 3px 0px gray;
-
             /* display: flex; */
-
             /* margin: 10px 0; */
         }
 
@@ -97,7 +95,7 @@
         <h1>인기영화</h1>
     </div>
     <div>
-        <div class="mypost" id="post-box">
+        <div class="mypost" id="serch-box">
             <div class="form-floating mb-3">
                 <input id="serch" class="form-control">
                 <label>영화제목</label>
@@ -105,21 +103,14 @@
             <div class="mybtns">
                 <button type="button" onclick="serch()" class="btn btn-dark">찾기</button>
             </div>
-        </div>
-        <div class="mypost" id="post-box">
-            <select style="margin: auto;" name='기준' style="height:30px; width: 100px;">
-                <option value="1" selected="selected">이름</option>
-                <option value="2">평점</option>
-                <option value="3">출시일</option>
-            </select>
             <div class="mybtns">
-                <button type="button" class="btn btn-dark">정렬</button>
+                <button type="button" onclick="sort()" class="btn btn-dark">이름정렬</button>
             </div>
         </div>
     </div>
-    <div class="mycards">
+    <div class="mycards" style="margin: auto;">
         <div class="row row-cols-1 row-cols-md-4 g-4" id="cards-box">
-            <!-- <div class="col">
+            <!--
                 <div class="card h-100">
                     <img src="https://movie-phinf.pstatic.net/20210728_221/1627440327667GyoYj_JPEG/movie_image.jpg"
                         class="card-img-top">
@@ -129,9 +120,7 @@
                         <p class="average">평점</p>
                     </div>
                 </div>
-            </div>
-            <button>clickme</button> -->
-            <!-- onclick="renderMovies()" -->
+           -->
         </div>
     </div>
     <script src="app3.js"></script>
