@@ -42,18 +42,19 @@ async function renderMovies() {
             <img onclick="alert(${x.id})" src="https://image.tmdb.org/t/p/w500${x.poster_path}"
                 class="card-img-top">
             <div class="card-body">
-                <h5 class="card-title">${x.title}</h5>
+                <h5 class="card-title">  ${x.title}</h5>
                 <p class="card-text">${x.overview}</p>
-                <p class="average">${x.vote_average}</p>
+                <p class="average">평점 : ${x.vote_average}</p>
             </div>
         </div>
     </div>`;
-// img onclick 에 alert() 를 바로 할당했다. 안될줄 알았다. 다른 함수를 새로 생성해 onclick 에 부여해보기
+        // img onclick 에 alert() 를 바로 할당했다. 안될줄 알았다. 다른 함수를 새로 생성해 onclick 에 부여해보기
         html += htmlSegment;
     });
 
     let container = document.querySelector('#cards-box');
     container.innerHTML = html;
 }
+renderMovies();
 // 비동기 동기
 //TypeError: movies.forEach is not a function 배열 x
