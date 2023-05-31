@@ -16,25 +16,11 @@ async function getMovies() { // 객체를 가져오려면 then catch 말고 try 
 }
 // async function getMoviesdata() {
 //     return await getMovies()
-// } // 왜 함수를 두번 만드는가? answer : 안만들고 바로 할당가능
+// } // 바로쓰면 되는데 왜 리턴하는가? 안만들고 바로 할당가능 일단 주석
 
-// async function getPosters() {
-//     let Posters
-//     try {
-//         Posters = await fetch('https://api.themoviedb.org/3/configuration', options)
-//     } catch (error) {
-//         console.log(Posters);
-//     }
-//     return Posters.json()
-// }
-
-// async function getPostersdata() {
-//     return await getPosters()
-// } 
 async function renderMovies() {
     let { results: movies } = await getMovies(); // 객체구조분해할당
     // let { logo_sizes: posters } = await getPostersdata();
-    console.log(movies);
     let html = '';
     movies.forEach((x) => {
         let htmlSegment = `<div class="col">
@@ -42,7 +28,7 @@ async function renderMovies() {
             <img onclick="alert(${x.id})" src="https://image.tmdb.org/t/p/w500${x.poster_path}"
                 class="card-img-top">
             <div class="card-body">
-                <h5 class="card-title">  ${x.title}</h5>
+                <h5 class="card-title">${x.title}</h5>
                 <p class="card-text">${x.overview}</p>
                 <p class="average">평점 : ${x.vote_average}</p>
             </div>
@@ -55,6 +41,34 @@ async function renderMovies() {
     let container = document.querySelector('#cards-box');
     container.innerHTML = html;
 }
-renderMovies();
 // 비동기 동기
 //TypeError: movies.forEach is not a function 배열 x
+renderMovies();
+
+async function serch() {
+    var value
+    let html = '';
+    value = document.getElementById("serch").value;
+    let { results: movies } = await getMovies();
+    const serchData = movies.filter((x) => {
+        return x.title.includes(value)
+    })
+
+    serchData.forEach((x) => {
+        let htmlSegment = `<div class="col">
+        <div class="card h-100">
+            <img onclick="alert(${x.id})" src="https://image.tmdb.org/t/p/w500${x.poster_path}"
+                class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">${x.title}</h5>
+                <p class="card-text">${x.overview}</p>
+                <p class="average">평점 : ${x.vote_average}</p>
+            </div>
+        </div>
+    </div>`;
+        html += htmlSegment;
+    });
+
+    let container = document.querySelector('#cards-box');
+    container.innerHTML = html;
+}
