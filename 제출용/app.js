@@ -30,7 +30,7 @@ async function search() { //검색으로 새로 불러오는 데이터
 
     let { results: movies } = await getMovies(); // 객체구조분해할당 방식으로 변수저장을 해줘야한다. getMovie()로 가져온 데이터는 배열이기 때문에 객체로 변환
     let inputtext
-    inputtext = document.getElementById("search").value.toUpperCase();
+    inputtext = document.getElementById("search-input").value.toUpperCase();
     const searchData = movies.filter((x) => {
         let a = x.title.toUpperCase()
         return a.includes(inputtext)
@@ -56,30 +56,40 @@ async function sort_date() { // 출시일 기준 정렬
 async function sort_vote() { // 평점순 정렬 (평점이 같으면 투표 수가 많은 순)
     let { results: movies } = await getMovies();
     const sort_data = movies.sort((a, b) => {
-        if(a.vote_average > b.vote_average) 
-        return -1  
-        else if(a.vote_average < b.vote_average) 
-        return 1
-        else if(a.vote_count > b.vote_count)
-        return -1
-        else if(a.vote_count < b.vote_count)
-        return 1
-});
+        if (a.vote_average > b.vote_average)
+            return -1
+        else if (a.vote_average < b.vote_average)
+            return 1
+        else if (a.vote_count > b.vote_count)
+            return -1
+        else if (a.vote_count < b.vote_count)
+            return 1
+    });
 
     setpage(sort_data)
 }
 
-const setpage = function(arr){ // 데이터를 찍는 함수
+const sort = function () {
+    let select = document.getElementById("select");
+    let value = (select.options[select.selectedIndex].value);
+    if (value === 'name')
+        sort_title()
+    else if (value === 'date')
+        sort_date()
+    else if (value === 'vote')
+        sort_vote()
+}
+
+const setpage = function (arr) { // 데이터를 찍는 함수
     let html = '';
 
     arr.forEach((x) => {
         let htmlSegment = `
-        <div onclick="alert(${x.id})" class="card h-100">
-            <img src="https://image.tmdb.org/t/p/w500${x.poster_path}"
-                class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">${x.title}</h5>
-                <p class="card-text">${x.overview}</p>
+        <div onclick="alert('영화 id : ' + ${x.id})" class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w500${x.poster_path}">
+            <div>
+                <h3>${x.title}</h5>
+                <p>${x.overview}</p>
                 <p>평점 : ${x.vote_average}</p>
             </div>
         </div>
@@ -87,6 +97,6 @@ const setpage = function(arr){ // 데이터를 찍는 함수
         html += htmlSegment;
     });
 
-    let container = document.querySelector('#cards-box');
+    let container = document.querySelector('.card-list');
     container.innerHTML = html;
 }
