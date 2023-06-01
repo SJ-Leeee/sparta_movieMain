@@ -29,5 +29,5 @@ function getMovies() {
             let container = document.querySelector('#cards-box');
             container.innerHTML = html;
         })
-        .catch(err => console.error(err));
-}
+        .catch(err => console.error(err))
+    }
