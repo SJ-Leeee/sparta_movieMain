@@ -7,9 +7,6 @@ const options = {
 };
 async function getMovies() {
     let movies
-    // let page = document.getElementById("page"); 
-    // let value = (page.options[page.selectedIndex].text);
-    // let page1 = Number(value);
     try {
         movies = await fetch(`https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=4`, options)
         // 패치로 가져온 데이터를 movies에 할당
@@ -23,12 +20,11 @@ async function renderMovies() {  /* 패치로 가져온 데이터를 찍는 과�
     let { results: movies } = await getMovies(); // 객체구조분해할당 방식으로 변수저장을 해줘야한다. getMovie()로 가져온 데이터는 배열이기 때문에 객체로 변환
     setpage(movies) // movies 라는 객체를 받아서 화면에 출력하는 함수
 }
-//TypeError: movies.forEach is not a function === 배열이 아니여서 생기는 오류
+//TypeError: movies.forEach is not a function : 배열이 아니여서 생기는 오류
 
 renderMovies(); // 바로 실행 시켜 줌 으로써 html에 바로 출력
 
 async function search() { //검색으로 새로 불러오는 데이터 
-
     let { results: movies } = await getMovies();
     let inputtext
     inputtext = document.getElementById("search-input").value.toUpperCase(); // 대문자 변환해서 입력받은 데이터 할당
